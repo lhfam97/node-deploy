@@ -5,26 +5,23 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinColumn,
 } from 'typeorm';
 
-import User from './User';
+// KISS - Keep it Simple and stupid
 
-@Entity('appointments')
-class Appointment {
+@Entity('users')
+class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  provider_id: string;
+  name: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'provider_id' })
-  provider: User;
+  @Column()
+  email: string;
 
-  @Column('timestamp with time zone')
-  date: Date;
+  @Column()
+  password: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -32,10 +29,10 @@ class Appointment {
   @UpdateDateColumn()
   updated_at: Date;
 
-  // constructor({ provider, date }: Omit<Appointment, 'id'>) {
+  // constructor({ provider, date }: Omit<User, 'id'>) {
   //   this.id = uuid();
   //   this.provider = provider;
   //   this.date = date;
   // }
 }
-export default Appointment;
+export default User;

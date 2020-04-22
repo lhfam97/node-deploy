@@ -11,7 +11,7 @@ Acesso ao repositório
 */
 
 interface Request {
-  provider: string;
+  provider_id: string;
   date: Date;
 }
 
@@ -23,7 +23,7 @@ class CreateAppointmentService {
   // }
 
   // eslint-disable-next-line class-methods-use-this
-  public async execute({ provider, date }: Request): Promise<Appointment> {
+  public async execute({ provider_id, date }: Request): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
@@ -35,7 +35,7 @@ class CreateAppointmentService {
       // return response.status(400).json({message:'This appointment is already booked'})
     }
     const appointment = appointmentsRepository.create({
-      provider,
+      provider_id,
       date: appointmentDate,
     });
     await appointmentsRepository.save(appointment);
