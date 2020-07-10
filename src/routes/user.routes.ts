@@ -34,10 +34,11 @@ usersRouter.patch(
   upload.single('avatar'),
   async (request, response) => {
     const updateUserAvatar = new UpdateUserAvatarService();
-    const user = await updateUserAvatar.execute({
-      user_id: request.user.id,
-      avatarFilename: request.file.filename,
-    });
+    const user = await
+      updateUserAvatar.execute({
+        user_id: request.user.id,
+        avatarFilename: request.file.filename,
+      });
     delete user.password;
     return response.json(user);
   },
