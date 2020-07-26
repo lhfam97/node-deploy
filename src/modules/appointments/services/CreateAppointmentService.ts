@@ -1,4 +1,4 @@
-import { startOfHour } from 'date-fns';
+import { startOfHour, isEqual } from 'date-fns';
 import AppError from '@shared/errors/AppError';
 import Appointment from '../infra/typeorm/entities/Appointments';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
@@ -33,9 +33,9 @@ class CreateAppointmentService {
     const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
       appointmentDate,
     );
+
     if (findAppointmentInSameDate) {
-      throw new AppError('This appointment is already booked');
-      // return response.status(400).json({message:'This appointment is already booked'})
+      throw Error('this provider is already booked');
     }
     const appointment = await this.appointmentsRepository.create({
       provider_id,
