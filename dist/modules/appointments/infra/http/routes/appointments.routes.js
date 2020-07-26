@@ -1,15 +1,21 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var AppointmentController_1 = __importDefault(require("@modules/appointments/infra/http/controllers/AppointmentController"));
-var ensureAuthenticated_1 = __importDefault(require("@modules/users/infra/http/middlewares/ensureAuthenticated"));
-var appointmentsRouter = express_1.Router();
-var appointmentController = new AppointmentController_1.default();
-appointmentsRouter.use(ensureAuthenticated_1.default);
-// Post http://localhost:3333/appointments
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _express = require("express");
+
+var _AppointmentController = _interopRequireDefault(require("../controllers/AppointmentController"));
+
+var _ensureAuthenticated = _interopRequireDefault(require("../../../../users/infra/http/middlewares/ensureAuthenticated"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const appointmentsRouter = (0, _express.Router)();
+const appointmentController = new _AppointmentController.default();
+appointmentsRouter.use(_ensureAuthenticated.default); // Post http://localhost:3333/appointments
 // DTO = Data transfer object
 // SOC Sepparation of Concerns. Separação de preocupações
 // Rota: Receber requisição, chamar outro arquivo, devolver uma resposta
@@ -17,5 +23,7 @@ appointmentsRouter.use(ensureAuthenticated_1.default);
 //   const appointments = await appointmentsRepository.find();
 //   return response.json(appointments);
 // });
+
 appointmentsRouter.post('/', appointmentController.create);
-exports.default = appointmentsRouter;
+var _default = appointmentsRouter;
+exports.default = _default;
